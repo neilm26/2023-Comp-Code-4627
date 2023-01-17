@@ -35,6 +35,13 @@ public class Tuner extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //m_table.SetDoubleEntry("Temp", 0);
+    //SmartDashboard.putNumber("Slider: ", m_table.entry.getDouble(0));
+    // SmartDashboard.putData(m_Drivetrain.getController());
+    m_Drivetrain.getController().getController().setPID(m_table.entry.getDouble(0), 0, 0);
+    // SmartDashboard.putData(m_Drivetrain.getController());
+
+
     SmartDashboard.putNumber("calculated: ", m_Drivetrain.getController().returnCalc(m_Pigeon.getRoll(), m_Pigeon.getSetpoint()));
     SmartDashboard.putNumber("PIGEON MEASURE: ", m_Drivetrain.getController().getMeasurement());
     double right_power = Utilities.constrain(m_Drivetrain.getController().returnCalc(m_Pigeon.getRoll(), m_Pigeon.getSetpoint()),-1,1);
