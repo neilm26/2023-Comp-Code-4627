@@ -1,0 +1,25 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/PID": "Subsystem",
+      "/LiveWindow/PID/PID Controller": "PIDController",
+      "/LiveWindow/Ungrouped/Pigeon IMU [13]": "Gyro",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/SmartDashboard/PID": "Subsystem"
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        "open": true
+      },
+      "SmartDashboard": {
+        "PID": {
+          "open": true
+        },
+        "open": true
+      }
+    }
+  }
+}

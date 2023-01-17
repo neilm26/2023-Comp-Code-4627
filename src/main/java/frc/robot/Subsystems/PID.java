@@ -19,8 +19,7 @@ public class PID extends PIDSubsystem {
 
   public double returnCalc(double curr, double setpoint) {
     // Use the output here
-    return getController().calculate(curr, setpoint);
-  }
+    return getController().calculate(curr, setpoint); }
 
   public void useOutputNoSetpoint(double currErr) {
     SmartDashboard.putNumber("measured error", currErr);

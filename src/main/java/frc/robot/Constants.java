@@ -163,12 +163,12 @@ public final class Constants {
   
 
     //PIGEON
-    public static double PIGEON_KP = 0.03;
-    public static double PIGEON_KI = 0.0003;
-    public static double PIGEON_KD = 0.01;
+    public static final double PIGEON_KP = 0.03;
+    public static final double PIGEON_KI = 0.0003;
+    public static final double PIGEON_KD = 0.01;
   
-    public static double FEEDFORWARD_KV = 0.03;
-    public static double FEEDFORWARD_KA = 0.03;
+    public static final double FEEDFORWARD_KV = 0.03;
+    public static final double FEEDFORWARD_KA = 0.03;
 
     public static final double PIGEON_TOLERANCE = 2;
   

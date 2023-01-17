@@ -1,0 +1,10 @@
+[
+  {
+    "name": "/Shuffleboard/SmartDashboard/Max Speed",
+    "type": "double",
+    "value": 1.0,
+    "properties": {
+      "persistent": true
+    }
+  }
+]

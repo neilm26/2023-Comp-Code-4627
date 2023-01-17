@@ -45,8 +45,7 @@ public class Drivetrain extends SubsystemBase {
     // resetEncoders();
     m_rearLeft.follow(m_frontLeft);
     m_rearRight.follow(m_frontRight);
-    m_PID = pid;
-    
+    m_PID = pid;    
 
     // m_frontLeft.setInverted(false);
     // m_frontLeft.setInverted(true); // Left side mounted backwards
