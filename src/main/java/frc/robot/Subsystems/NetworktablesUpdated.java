@@ -4,19 +4,26 @@
 
 package frc.robot.Subsystems;
 
+import java.util.Map;
+
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class NetworktablesUpdated extends SubsystemBase {
   /** Creates a new NetworktablesUpdated. */
-  public GenericEntry entry;
-
+  public GenericEntry kp_entry,ki_entry,kd_entry;
+  private ShuffleboardTab tab = Shuffleboard.getTab("Drive");
   public void BuildWidget() {
-    entry = Shuffleboard.getTab("Drive").addPersistent("kP", Constants.PIGEON_KP).
-          withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+    kp_entry = tab.addPersistent("kP", Constants.PIGEON_KP).
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",-0.3,"max",0.3)).getEntry();
+    ki_entry = tab.addPersistent("kI", Constants.PIGEON_KI).
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",-0.003,"max",0.003)).getEntry();      
+    kd_entry = tab.addPersistent("kD", Constants.PIGEON_KD).
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",-0.05,"max",0.05)).getEntry();          
   }
 
   public NetworktablesUpdated() {} 

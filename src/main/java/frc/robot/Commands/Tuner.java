@@ -38,7 +38,8 @@ public class Tuner extends CommandBase {
     //m_table.SetDoubleEntry("Temp", 0);
     //SmartDashboard.putNumber("Slider: ", m_table.entry.getDouble(0));
     // SmartDashboard.putData(m_Drivetrain.getController());
-    m_Drivetrain.getController().getController().setPID(m_table.entry.getDouble(0), 0, 0);
+    m_Drivetrain.getController().getController().setPID(m_table.kp_entry.getDouble(0)
+          ,m_table.ki_entry.getDouble(0),m_table.kd_entry.getDouble(0));
     // SmartDashboard.putData(m_Drivetrain.getController());
 
 
