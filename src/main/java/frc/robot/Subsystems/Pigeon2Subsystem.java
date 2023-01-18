@@ -4,28 +4,21 @@
 
 package frc.robot.Subsystems;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
-import com.ctre.phoenix.sensors.WPI_PigeonIMU;
-import com.ctre.phoenix.sensors.PigeonIMU.PigeonState;
+import com.ctre.phoenix.sensors.Pigeon2Configuration;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
-import edu.wpi.first.math.estimator.KalmanFilter;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N2;
 import edu.wpi.first.math.system.LinearSystem;
 import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Pigeon extends SubsystemBase {
-  /** Creates a new Pigeon. */
-  private final WPI_PigeonIMU pigeonIMU = new WPI_PigeonIMU(Constants.PIGEON_ID);
-  private final Accelerometer accelerometer = new BuiltInAccelerometer();
+public class Pigeon2Subsystem extends SubsystemBase {
+  /** Creates a new Pigeon2. */
+  private final WPI_Pigeon2 pigeon2 = new WPI_Pigeon2(Constants.PIGEON_ID);
 
   private final LinearSystem<N2, N1, N1> pigeonPlant = LinearSystemId.identifyPositionSystem( 
                                               Constants.FEEDFORWARD_KV, Constants.FEEDFORWARD_KA);
@@ -33,23 +26,19 @@ public class Pigeon extends SubsystemBase {
   private double setpoint;
   private double[] getAccelerometerAngles = new double[3];
   private double[] getRawGyroAngles = new double[3];
+  private double[] getGravityVectors = new double[3];
 
-
-  public Pigeon() {
-  }
-
-  public ArrayList<Double> returnAngleRate() {
-    ArrayList<Double> accel_arr = new ArrayList<>(Arrays.asList(accelerometer.getX(), accelerometer.getY(), accelerometer.getZ()));
-    return accel_arr;
-  }
-
-  public Accelerometer getAccelerometer() {
-    return accelerometer;
-  }
+  public Pigeon2Subsystem() {}
 
   public double cancelNoise(double input, int taps) {
     LinearFilter AccelFilter = LinearFilter.movingAverage(taps);
     return AccelFilter.calculate(input);
+  }
+
+  public void configure() {
+    Pigeon2Configuration config = new Pigeon2Configuration();
+    config.MountPosePitch=1;
+    pigeon2.configAllSettings(config);
   }
 
   public double getError(double curr, double target) {
@@ -57,31 +46,30 @@ public class Pigeon extends SubsystemBase {
   }
 
   public double[] getRate() {
-    pigeonIMU.getRawGyro(getRawGyroAngles);
+    pigeon2.getRawGyro(getRawGyroAngles);
 
     return getRawGyroAngles;
   }
 
-  public double[] updateAccelerometerAngles() {
-    pigeonIMU.getAccelerometerAngles(getAccelerometerAngles);
+  public double[] updateGravityVectors() {
+    pigeon2.getGravityVector(getGravityVectors);
     //[0] returns pitch
-    return getAccelerometerAngles;
+    return getGravityVectors;
   }
-
   
 
   public double getPitch() {
-    return pigeonIMU.getPitch();
+    return pigeon2.getPitch();
   }
   public double getYaw() {
-    return pigeonIMU.getYaw();
+    return pigeon2.getYaw();
   }
   public double getRoll() {
-    return pigeonIMU.getRoll();
+    return pigeon2.getRoll();
   }
 
   public void setYaw(double ang) {
-    pigeonIMU.setYaw(ang);
+    pigeon2.setYaw(ang);
   }
 
   public void setSetpoint(double p) {
@@ -90,11 +78,6 @@ public class Pigeon extends SubsystemBase {
 
   public double getSetpoint() {
     return setpoint;
-  }
-
-
-  public void setFusedHeading(double offset) {
-    pigeonIMU.setFusedHeading(offset);
   }
 
   public double getAccelRoll(double accel_x, double accel_y, double accel_z) {

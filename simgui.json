@@ -6,7 +6,8 @@
       "/LiveWindow/PID/PID Controller": "PIDController",
       "/LiveWindow/Ungrouped/Pigeon IMU [13]": "Gyro",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
-      "/SmartDashboard/PID": "Subsystem"
+      "/SmartDashboard/PID": "Subsystem",
+      "/SmartDashboard/enable pigeon output": "Command"
     }
   },
   "NetworkTables": {

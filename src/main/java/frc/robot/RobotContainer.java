@@ -5,9 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Commands.DriveControls;
+import frc.robot.Commands.PigeonOutput;
 import frc.robot.Commands.PigeonTiltingPID;
 import frc.robot.Commands.Tuner;
 import frc.robot.Subsystems.Drivetrain;
@@ -46,11 +48,20 @@ public class RobotContainer {
   
     // configures all the button bindings for the robot
     m_table.BuildWidget();
+    SmartDashboard.putData("enable pigeon output", new PigeonOutput(m_Pigeon));
 
     // setup default commands
     this.m_drivetrain.setDefaultCommand(getDriverControls());
     m_OI.dButtonB.toggleOnTrue(m_Tune);
     m_OI.dButtonX.onTrue(new InstantCommand(() -> m_Pigeon.setSetpoint(m_Pigeon.getRoll())));
+    // this.m_drivetrain.run(new Runnable() {
+
+    //   @Override
+    //   public void run() {
+    //     getPigeonOutput();
+    //   }
+      
+    // });
 
     LiveWindow.enableAllTelemetry();
   }
@@ -61,7 +72,7 @@ public class RobotContainer {
         () -> m_OI.getDriverRawAxis(Constants.LEFT_TRIGGER), () -> m_OI.getDriverButton(Constants.BUTTON_Y));
   }
 
-  public Command getPigeonReadings() {
+  public Command balance() {
     return new PigeonTiltingPID(m_Pigeon, new PID(Constants.PIGEON_KP, Constants.PIGEON_KI, Constants.PIGEON_KD));
   }
 }

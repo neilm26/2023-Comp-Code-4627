@@ -10,7 +10,23 @@
   {
     "name": "/Shuffleboard/Drive/kP",
     "type": "double",
-    "value": 0.03,
+    "value": 0.17871794871794872,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/kI",
+    "type": "double",
+    "value": 0.027564102564102563,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/kD",
+    "type": "double",
+    "value": 0.006794871794871791,
     "properties": {
       "persistent": true
     }

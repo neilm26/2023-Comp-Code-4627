@@ -169,6 +169,7 @@ public final class Constants {
   
     public static final double FEEDFORWARD_KV = 0.03;
     public static final double FEEDFORWARD_KA = 0.03;
+    public static final double FEEDFORWARD_KS = 0.0;
 
     public static final double PIGEON_TOLERANCE = 2;
   
