@@ -7,11 +7,12 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.Pigeon;
+import frc.robot.Subsystems.Pigeon2Subsystem;
 
 public class PigeonOutput extends CommandBase {
   /** Creates a new PigeonOutput. */
-  private final Pigeon m_Pigeon;
-  public PigeonOutput(Pigeon pigeon) {
+  private final Pigeon2Subsystem m_Pigeon;
+  public PigeonOutput(Pigeon2Subsystem pigeon) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Pigeon = pigeon;
 
@@ -29,9 +30,10 @@ public class PigeonOutput extends CommandBase {
   public void execute() {
     tmp[1] =  m_Pigeon.cancelNoise(9.81 * Math.sin(m_Pigeon.getRoll()),10); //angular acceleration
     tmp[0] = m_Pigeon.cancelNoise(m_Pigeon.getRate()[0], 3); //angular velocity
-    tmp[2] = m_Pigeon.getRoll(); //get inclination
+    tmp[2] = m_Pigeon.getRoll(); //get inclination angle
     SmartDashboard.putNumber("graph heading: ", m_Pigeon.getRoll());
-    SmartDashboard.putNumberArray("inclination: ", tmp);
+    SmartDashboard.putNumberArray("inclination: ", tmp); //broadcast all three readings, good for snapshotting
+    SmartDashboard.putNumberArray("gravity vectors: ", m_Pigeon.updateGravityVectors());
   }
 
   // Called once the command ends or is interrupted.

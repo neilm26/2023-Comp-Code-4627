@@ -11,14 +11,15 @@ import frc.robot.Utilities;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.NetworktablesUpdated;
 import frc.robot.Subsystems.Pigeon;
+import frc.robot.Subsystems.Pigeon2Subsystem;
 
 public class Tuner extends CommandBase {
   /** Creates a new Tuner. */
   private final Drivetrain m_Drivetrain;
-  private final Pigeon m_Pigeon;
+  private final Pigeon2Subsystem m_Pigeon;
   private final NetworktablesUpdated m_table;
 
-  public Tuner(Drivetrain drivetrain, Pigeon pigeon, NetworktablesUpdated table) {
+  public Tuner(Drivetrain drivetrain, Pigeon2Subsystem pigeon, NetworktablesUpdated table) {
     m_Drivetrain = drivetrain;
     m_Pigeon = pigeon;
     m_table = table;
@@ -46,6 +47,7 @@ public class Tuner extends CommandBase {
     //black = tracked acceleration
     //red = tracked pitch angle
     double right_power = Utilities.constrain(m_Drivetrain.getController().returnCalc(m_Pigeon.getRoll(), m_Pigeon.getSetpoint()),-1,1);
+    double power = Utilities.constrain(m_Drivetrain.getController().returnCalc(m_Pigeon.updateGravityVectors()[0], right_power), -1, 1);
 
     m_Drivetrain.setMotors(right_power, right_power);
     

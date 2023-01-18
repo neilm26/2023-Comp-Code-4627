@@ -16,6 +16,7 @@ import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.NetworktablesUpdated;
 import frc.robot.Subsystems.PID;
 import frc.robot.Subsystems.Pigeon;
+import frc.robot.Subsystems.Pigeon2Subsystem;
 
 /** Add your docs here. */
 public class RobotContainer {
@@ -30,10 +31,11 @@ public class RobotContainer {
   // Subsystems
   private Drivetrain m_drivetrain = new Drivetrain(new PID(Constants.PIGEON_KP, Constants.PIGEON_KI, Constants.PIGEON_KD));
   private Pigeon m_Pigeon = new Pigeon();
+  private Pigeon2Subsystem m_Pigeon2 = new Pigeon2Subsystem();
   private NetworktablesUpdated m_table = new NetworktablesUpdated();
 
   //entry acting funny.
-  private Command m_Tune = new Tuner(m_drivetrain, m_Pigeon, m_table);
+  private Command m_Tune = new Tuner(m_drivetrain, m_Pigeon2, m_table);
 
 
   
@@ -48,7 +50,7 @@ public class RobotContainer {
   
     // configures all the button bindings for the robot
     m_table.BuildWidget();
-    SmartDashboard.putData("enable pigeon output", new PigeonOutput(m_Pigeon));
+    SmartDashboard.putData("enable pigeon output", new PigeonOutput(m_Pigeon2));
 
     // setup default commands
     this.m_drivetrain.setDefaultCommand(getDriverControls());
