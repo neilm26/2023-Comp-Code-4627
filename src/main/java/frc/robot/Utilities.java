@@ -92,6 +92,9 @@ public class Utilities {
 		return result;
 	}
 
+	public static double round(double input) {
+		return Math.round(input * 100) / 100;
+	} 
 	/**
 	 * The counter is responsible for counting up to a limit and the executing a function.
 	 */

@@ -4,6 +4,8 @@
 
 package frc.robot.Commands;
 
+import com.ctre.phoenix.Util;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -37,8 +39,10 @@ public class Tuner extends CommandBase {
 
   @Override
   public void execute() {
-    m_Drivetrain.getController().getController().setPID(m_table.kp_entry.getDouble(0)
-          ,m_table.ki_entry.getDouble(0),m_table.kd_entry.getDouble(0));
+    double m_kP = Utilities.round(m_table.kp_entry.getDouble(0));
+    double m_kI = Utilities.round(m_table.ki_entry.getDouble(0));
+    double m_kD = Utilities.round(m_table.kd_entry.getDouble(0));
+    m_Drivetrain.getController().getController().setPID(m_kP, m_kI, m_kD);
 
     
     SmartDashboard.putNumber("calculated: ", m_Drivetrain.getController().returnCalc(m_Pigeon.getRoll(), m_Pigeon.getSetpoint()));
