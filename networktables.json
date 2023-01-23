@@ -30,5 +30,21 @@
     "properties": {
       "persistent": true
     }
+  },
+  {
+    "name": "/Shuffleboard/Drive/kA",
+    "type": "double",
+    "value": 0.03,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/kV",
+    "type": "double",
+    "value": 0.03,
+    "properties": {
+      "persistent": true
+    }
   }
 ]

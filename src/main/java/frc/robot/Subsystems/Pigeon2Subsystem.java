@@ -8,6 +8,11 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.sensors.Pigeon2Configuration;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.LinearQuadraticRegulator;
+import edu.wpi.first.math.estimator.KalmanFilter;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N2;
@@ -20,11 +25,14 @@ public class Pigeon2Subsystem extends SubsystemBase {
   /** Creates a new Pigeon2. */
   private final WPI_Pigeon2 pigeon2 = new WPI_Pigeon2(Constants.PIGEON_ID);
 
-  private final LinearSystem<N2, N1, N1> pigeonPlant = LinearSystemId.identifyPositionSystem( 
-                                              Constants.FEEDFORWARD_KV, Constants.FEEDFORWARD_KA);
+  private final LinearSystem<N2, N2, N2> drivetrainPlant = LinearSystemId.identifyDrivetrainSystem( 
+                                              Constants.FEEDFORWARD_KV, Constants.FEEDFORWARD_KA, 
+                                              Constants.FEEDFORWARD_ANG_KV, Constants.FEEDFORWARD_ANG_KA);
+
+  // private final KalmanFilter<N2,N1, N1> balance_LQR = new KalmanFilter<>(Nat.N1(), Nat.N1(),drivetrainPlant, 
+  //                                     VecBuilder.fill(Constants.DRIVE_ANG_ERR_TOL),null,0.020);
 
   private double setpoint;
-  private double[] getAccelerometerAngles = new double[3];
   private double[] getRawGyroAngles = new double[3];
   private double[] getGravityVectors = new double[3];
 
@@ -34,6 +42,13 @@ public class Pigeon2Subsystem extends SubsystemBase {
     LinearFilter AccelFilter = LinearFilter.movingAverage(taps);
     return AccelFilter.calculate(input);
   }
+
+  // public  Matrix calculateWithLQR(Matrix curr, Matrix next) {
+  //   return balance_LQR.calculate(curr, next);
+  // }
+
+  
+
 
   public void configure() {
     Pigeon2Configuration config = new Pigeon2Configuration();

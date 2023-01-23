@@ -4,6 +4,8 @@
 
 package frc.robot.Subsystems;
 
+import com.ctre.phoenix.motorcontrol.GroupMotorControllers;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
@@ -19,14 +21,15 @@ public class PID extends PIDSubsystem {
 
   public double returnCalc(double curr, double setpoint) {
     // Use the output here
-    return getController().calculate(curr, setpoint); }
-
-  public void useOutputNoSetpoint(double currErr) {
-    SmartDashboard.putNumber("measured error", currErr);
+    return getController().calculate(curr, setpoint); 
   }
 
-  public void setTolerance(double tolerance) {
-    getController().setTolerance(tolerance);
+  public double getVelError() {
+    return getController().getVelocityError();
+  }
+
+  public void setTolerance(double tolerance, double vel_tolerance) {
+    getController().setTolerance(tolerance, vel_tolerance);
   }
 
 

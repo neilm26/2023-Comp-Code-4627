@@ -7,11 +7,7 @@ package frc.robot.Subsystems;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
-import com.ctre.phoenix.sensors.PigeonIMU.PigeonState;
-
-import edu.wpi.first.math.estimator.KalmanFilter;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N2;
@@ -90,11 +86,6 @@ public class Pigeon extends SubsystemBase {
 
   public double getSetpoint() {
     return setpoint;
-  }
-
-
-  public void setFusedHeading(double offset) {
-    pigeonIMU.setFusedHeading(offset);
   }
 
   public double getAccelRoll(double accel_x, double accel_y, double accel_z) {

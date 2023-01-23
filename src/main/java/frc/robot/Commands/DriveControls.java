@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Subsystems.Drivetrain;
 
 public class DriveControls extends CommandBase {
@@ -44,7 +45,8 @@ public class DriveControls extends CommandBase {
     SmartDashboard.putNumber("triggers", lefttrigger.get());
 
     double turn = Math.cbrt(joystickX.get());
-    drive.setMotors(speed + turn, speed - turn);
+   // drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+    drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
   }
 
   // Called once the command ends or is interrupted.

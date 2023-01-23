@@ -49,15 +49,15 @@ public final class Constants {
 
 
   public static enum MOTORS {
-    LEFT_MOTOR_1(0), // Falcon500 (TalonFX) 0
-    LEFT_MOTOR_2(1), // Falcon500 (TalonFX) 1
-    RIGHT_MOTOR_1(2), // Falcon500 (TalonFX) 2
-    RIGHT_MOTOR_2(3), // Falcon500 (TalonFX) 3
+    LEFT_MOTOR_1(2), // Falcon500 (TalonFX) 0 (2) for snoopy
+    LEFT_MOTOR_2(3), // Falcon500 (TalonFX) 1 (3) for snoopy
+    RIGHT_MOTOR_1(1), // Falcon500 (TalonFX) 2 (1) for snoopy
+    RIGHT_MOTOR_2(5), // Falcon500 (TalonFX) 3 (5) for snoopy
     SHOOTER_MOTOR(4), // Falcon500 (TalonFX) 4
-    TURRET_MOTOR(5), // Mini Neo 550 (Spark) 5
+    //TURRET_MOTOR(5), // Mini Neo 550 (Spark) 5
     INTAKE_EXTENSION_MOTOR(6), // Mini Neo 550 (Spark) 6
     ELEVATOR_MOTOR1(7), // // Falcon500 (TalonFX) 7
-    ELEVATOR_MOTOR2(8), // Falcon500 (TalonFX) 8
+    ELEVATOR_MOTOR2(8), // Falcon500 (TalonFX) 8xx
     STORAGE_MOTOR(9), // Neo (Spark) 9
     CLIMBER_BOX_MOTOR2(10), // Falcon500 (TalonFX) 11
     CLIMBER_BOX_MOTOR1(11), // Falcon500 (TalonFX) 11
@@ -74,6 +74,9 @@ public final class Constants {
   
   // ----------- SUBSYSTEM CONSTANTS ------------ //
   
+  //Timeout
+  public static final int TIMEOUT_MS = 30;
+
   // CLIMBER
 
   // Climb
@@ -101,9 +104,19 @@ public final class Constants {
   
   
   // DRIVETRAIN
-  public static final int DRIVE_MAX_SPEED = 1;
+  public static double DRIVE_MAX_SPEED = 0.3;
   public static final double DRIVE_RAMP_RATE = 1; // ramp rate describes time for the motor to reach max speed
   public static final double SPEED_MULTIPLIER = 0.6;
+
+  public static final double DRIVE_ANG_ERR_TOL = 0.4; //angle tolerance of +- said value in degrees
+
+  public static final double DRIVE_VEL_PEAK = 12; //max voltage
+  public static final int PID_IDX = 0; //pid_controller identification
+  public static final double TICKS_PER_DRIVE_TRAIN_REVOLUTION = 2048;
+  public static final double PEAK_DRIVE_RPM = 2000;
+  public static final double DRIVE_COMPENSATION = 600;
+
+  ///////////////////////////////
   
   // Encoder values
   public static final double WHEEL_DIAMETER = 15.24;
@@ -163,15 +176,17 @@ public final class Constants {
   
 
     //PIGEON
-    public static final double PIGEON_KP = 0.03;
-    public static final double PIGEON_KI = 0.0003;
-    public static final double PIGEON_KD = 0.01;
+    public static final double PIGEON_KP = 0.0485; //.051835
+    public static final double PIGEON_KI = 0.0016666666666;
+    public static final double PIGEON_KD = 0;
   
-    public static final double FEEDFORWARD_KV = 0.03;
+    public static final double FEEDFORWARD_KV = 0.03; //use sysid
     public static final double FEEDFORWARD_KA = 0.03;
     public static final double FEEDFORWARD_KS = 0.0;
+    public static final double FEEDFORWARD_ANG_KV = 0.03;
+    public static final double FEEDFORWARD_ANG_KA = 0.03;
 
-    public static final double PIGEON_TOLERANCE = 2;
+    public static final double PIGEON_TOLERANCE = 5;
   
   // ----------- COMMAND CONSTANTS ------------ //
   // AutoDrive
@@ -214,8 +229,8 @@ public final class Constants {
   public static final int CURRENT_LIMIT = 70;
   public static final int CONTINUOUS_CURRENT_LIMIT = 35;
   public static final int CURRENT_LIMIT_DURATION = 50;
-  public static final int PIGEON_ID = 13;
-  
+  public static final int PIGEON_ID = 6; //(6) for snoopy
+   
   public static final double RADIUS_OF_FLYWHEEL = 0.08; //in meters
   public static final double TICKS_PER_FLYWHEEL_REVOLUTION = 2048; //ticks
   
@@ -224,4 +239,6 @@ public final class Constants {
   public static final double GRAVITY = 9.81; //m per s^2
 public static final double INTAKE_EXTENSION_FAILSAFE = 1.4;
 public static final double INTAKE_EXTENSION_MIN = 0.5;
+public static final Gains VEL_GAINS = new Gains(PIGEON_KP, PIGEON_KI, PIGEON_KD, TICKS_PER_DRIVE_TRAIN_REVOLUTION/20660.0, 300, 1.00);
+
 }

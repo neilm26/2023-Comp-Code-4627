@@ -14,12 +14,16 @@ public class FeedForward extends SubsystemBase {
                         Constants.FEEDFORWARD_KV, Constants.FEEDFORWARD_KA);   
 
   public FeedForward() {
-
+    //calibrate other min-max vals
   }
 
 
-  public void FFCalculate(double curr, double target) {
-    drivFeedforward.calculate(curr, target);
+  public double FFCalculate(double velocity, double acceleration) {
+    return drivFeedforward.calculate(velocity, acceleration);
+  }
+
+  public void tuneFF(double inp_kv, double inp_ka) {
+    drivFeedforward = new SimpleMotorFeedforward(Constants.FEEDFORWARD_KS, inp_kv, inp_ka);
   }
 
   @Override
