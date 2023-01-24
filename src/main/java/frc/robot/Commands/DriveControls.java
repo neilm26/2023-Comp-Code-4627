@@ -37,7 +37,7 @@ public class DriveControls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = (righttrigger.get() - lefttrigger.get());
+    double speed = (lefttrigger.get() - righttrigger.get());
 
     // if(yButton.get()) {
     //   speed = speed/2;
@@ -45,8 +45,8 @@ public class DriveControls extends CommandBase {
     SmartDashboard.putNumber("triggers", lefttrigger.get());
 
     double turn = Math.cbrt(joystickX.get());
-   // drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
-    drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+    drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+   // drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
   }
 
   // Called once the command ends or is interrupted.

@@ -106,7 +106,7 @@ public final class Constants {
   // DRIVETRAIN
   public static double DRIVE_MAX_SPEED = 0.3;
   public static final double DRIVE_RAMP_RATE = 1; // ramp rate describes time for the motor to reach max speed
-  public static final double SPEED_MULTIPLIER = 0.6;
+  public static final double SPEED_MULTIPLIER = 0.75;
 
   public static final double DRIVE_ANG_ERR_TOL = 0.4; //angle tolerance of +- said value in degrees
 

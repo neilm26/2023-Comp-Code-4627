@@ -5,9 +5,11 @@
 package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
@@ -50,9 +52,13 @@ public class Drivetrain extends SubsystemBase {
   /** Creates a new Drive. */
   public Drivetrain(PID pid) {
     // m_drive.setMaxOutput(distancePerTick);
-    // resetEncoders();
-    m_rearLeft.follow(m_frontLeft);
-    m_rearRight.follow(m_frontRight);
+    // // resetEncoders();
+    // m_rearLeft.follow(m_frontLeft);
+    // m_rearRight.follow(m_frontRight);
+
+    m_rearLeft.set(ControlMode.Follower, m_frontLeft.getDeviceID());
+    m_rearRight.set(ControlMode.Follower, m_frontRight.getDeviceID());
+
     m_frontRight.setNeutralMode(NeutralMode.Brake);
     m_frontLeft.setNeutralMode(NeutralMode.Brake);                                                                      
     m_rearLeft.setNeutralMode(NeutralMode.Brake);                                                                     
