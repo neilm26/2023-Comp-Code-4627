@@ -33,7 +33,7 @@ public class RobotContainer {
   private NetworktablesUpdated m_table = new NetworktablesUpdated();
 
   //entry acting funny.
-  private Command m_Tune = new Tuner(m_drivetrain, m_Pigeon2, m_table, m_FeedForward);
+  private Command m_Tune = new Tuner(m_drivetrain, m_Pigeon2, m_table);
   
   
   public RobotContainer() {

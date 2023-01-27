@@ -45,8 +45,10 @@ public class DriveControls extends CommandBase {
     SmartDashboard.putNumber("triggers", lefttrigger.get());
 
     double turn = Math.cbrt(joystickX.get());
-    drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
-   // drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+    //drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+    SmartDashboard.putNumber("tof distance: ", drive.getToFDistance());
+    
+    drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
   }
 
   // Called once the command ends or is interrupted.

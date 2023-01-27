@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,6 +30,8 @@ public class Drivetrain extends SubsystemBase {
 
   private TalonFX m_frontRight = new TalonFX(Constants.MOTORS.RIGHT_MOTOR_1.value);
   private TalonFX m_rearRight = new TalonFX(Constants.MOTORS.RIGHT_MOTOR_2.value);
+  private TimeOfFlight m_tof = new TimeOfFlight(Constants.TIME_OF_FLIGHT_ID);
+
   
 
   private final PID m_PID;
@@ -45,7 +49,7 @@ public class Drivetrain extends SubsystemBase {
     motor.configNominalOutputReverse(0.0, Constants.TIMEOUT_MS);
     motor.configPeakOutputForward(1.0, Constants.TIMEOUT_MS);
     motor.configPeakOutputReverse(-1.0, Constants.TIMEOUT_MS);  
-
+   // motor.configClosedloopRamp(1, Constants.TIMEOUT_MS);
     return motor;
   }
 
@@ -59,6 +63,9 @@ public class Drivetrain extends SubsystemBase {
     m_rearLeft.set(ControlMode.Follower, m_frontLeft.getDeviceID());
     m_rearRight.set(ControlMode.Follower, m_frontRight.getDeviceID());
 
+    //m_rearRight.setInverted(TalonFXInvertType.OpposeMaster);
+    //m_rearRight.setInverted(TalonFXInvertType.OpposeMaster);
+
     m_frontRight.setNeutralMode(NeutralMode.Brake);
     m_frontLeft.setNeutralMode(NeutralMode.Brake);                                                                      
     m_rearLeft.setNeutralMode(NeutralMode.Brake);                                                                     
@@ -70,8 +77,10 @@ public class Drivetrain extends SubsystemBase {
     m_rearRight = ConfigDriveAttributes(m_rearRight);
     m_rearLeft = ConfigDriveAttributes(m_rearLeft);
 
+
     // m_frontLeft.setInverted(false);
-    // m_frontLeft.setInverted(true); // Left side mounted backwards
+    // m_rearLeft.setInverted(true); // Left side mounted backwards
+    // m_frontRight.setInverted(true);
   }
 
   public void setMotors(double right, double left, double max) {
@@ -85,16 +94,26 @@ public class Drivetrain extends SubsystemBase {
   public void setMotorsVelocity(double rightVel, double leftVel, double scaleFactor) {
     double right = Utilities.scale(rightVel, scaleFactor);
     m_frontRight.set(TalonFXControlMode.Velocity, right * Constants.PEAK_DRIVE_RPM * Constants.TICKS_PER_DRIVE_TRAIN_REVOLUTION / Constants.DRIVE_COMPENSATION);   
+
     SmartDashboard.putNumber("Applied Velocity: ", m_frontRight.getSelectedSensorVelocity(0));
     double left = Utilities.scale(leftVel, scaleFactor);
+
     //left is joystick input multiplied by a scaling factor to limit max_vel
     //drive compensation is tunable
     //peak drive rpm is the max rpm of a falcon 500 taking into account robot weight
     m_frontLeft.set(TalonFXControlMode.Velocity, -left * Constants.PEAK_DRIVE_RPM * Constants.TICKS_PER_DRIVE_TRAIN_REVOLUTION / Constants.DRIVE_COMPENSATION);
   }
 
+  public double getToFDistance() {
+    return m_tof.getRange();
+  }
+
   public double getSensorVel(TalonFX talon) {
     return talon.getSelectedSensorVelocity();
+  }
+
+  public void setToFMode(RangingMode inp) {
+    m_tof.setRangingMode(inp,Constants.TIMEOUT_MS);
   }
   
   public void voltageCompensation(double limitVoltage, boolean activate) {

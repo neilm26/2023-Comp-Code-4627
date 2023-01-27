@@ -35,6 +35,9 @@ public class Pigeon2Subsystem extends SubsystemBase {
   private double setpoint;
   private double[] getRawGyroAngles = new double[3];
   private double[] getGravityVectors = new double[3];
+  private double[] DimQuad = new double[4];
+  private short[] biasedAcc = new short[3];
+  private double[] accumGyroReadings = new double[3];
 
   public Pigeon2Subsystem() {}
 
@@ -70,6 +73,24 @@ public class Pigeon2Subsystem extends SubsystemBase {
     pigeon2.getGravityVector(getGravityVectors);
     //[0] returns pitch
     return getGravityVectors;
+  }
+
+  public double[] getQuad() {
+    pigeon2.get6dQuaternion(DimQuad);
+
+    return DimQuad;
+  }
+
+  public short[] getBiasedMagn() {
+    pigeon2.getBiasedAccelerometer(biasedAcc);
+
+    return biasedAcc;
+  }
+
+  public double[] getAccum() {
+    pigeon2.getAccumGyro(accumGyroReadings);
+
+    return accumGyroReadings;
   }
   
 

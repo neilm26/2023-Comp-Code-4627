@@ -116,6 +116,8 @@ public final class Constants {
   public static final double PEAK_DRIVE_RPM = 2000;
   public static final double DRIVE_COMPENSATION = 600;
 
+  //Inclination
+  public static final double MAX_INCLINATION_ANGLE = 25;
   ///////////////////////////////
   
   // Encoder values
@@ -230,6 +232,7 @@ public final class Constants {
   public static final int CONTINUOUS_CURRENT_LIMIT = 35;
   public static final int CURRENT_LIMIT_DURATION = 50;
   public static final int PIGEON_ID = 6; //(6) for snoopy
+  public static final int TIME_OF_FLIGHT_ID = 0;
    
   public static final double RADIUS_OF_FLYWHEEL = 0.08; //in meters
   public static final double TICKS_PER_FLYWHEEL_REVOLUTION = 2048; //ticks
