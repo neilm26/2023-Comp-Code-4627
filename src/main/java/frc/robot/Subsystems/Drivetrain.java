@@ -4,17 +4,16 @@
 
 package frc.robot.Subsystems;
 
+import java.util.HashMap;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -30,11 +29,11 @@ public class Drivetrain extends SubsystemBase {
 
   private TalonFX m_frontRight = new TalonFX(Constants.MOTORS.RIGHT_MOTOR_1.value);
   private TalonFX m_rearRight = new TalonFX(Constants.MOTORS.RIGHT_MOTOR_2.value);
-  private TimeOfFlight m_tof = new TimeOfFlight(Constants.TIME_OF_FLIGHT_ID);
-
-  
+  private TimeOfFlight m_tof = new TimeOfFlight(Constants.TIME_OF_FLIGHT_ID);  
 
   private final PID m_PID;
+  private final NetworktablesUpdated m_table;
+  private double startDist;
   
 
   private final double distancePerTick = (Constants.WHEEL_CIRCUMFERENCE/(Constants.ENCODER_PULSES_PER_ROTATION*1.4*Constants.ENCODER_GEAR_RATIO));
@@ -54,7 +53,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /** Creates a new Drive. */
-  public Drivetrain(PID pid) {
+  public Drivetrain(PID pid, NetworktablesUpdated m_table) {
     // m_drive.setMaxOutput(distancePerTick);
     // // resetEncoders();
     // m_rearLeft.follow(m_frontLeft);
@@ -63,20 +62,18 @@ public class Drivetrain extends SubsystemBase {
     m_rearLeft.set(ControlMode.Follower, m_frontLeft.getDeviceID());
     m_rearRight.set(ControlMode.Follower, m_frontRight.getDeviceID());
 
-    //m_rearRight.setInverted(TalonFXInvertType.OpposeMaster);
-    //m_rearRight.setInverted(TalonFXInvertType.OpposeMaster);
 
     m_frontRight.setNeutralMode(NeutralMode.Brake);
     m_frontLeft.setNeutralMode(NeutralMode.Brake);                                                                      
     m_rearLeft.setNeutralMode(NeutralMode.Brake);                                                                     
     m_rearRight.setNeutralMode(NeutralMode.Brake);
     m_PID = pid;
+    this.m_table = m_table;
                                                                         
     m_frontLeft = ConfigDriveAttributes(m_frontLeft);
     m_frontRight = ConfigDriveAttributes(m_frontRight);
     m_rearRight = ConfigDriveAttributes(m_rearRight);
     m_rearLeft = ConfigDriveAttributes(m_rearLeft);
-
 
     // m_frontLeft.setInverted(false);
     // m_rearLeft.setInverted(true); // Left side mounted backwards
@@ -108,8 +105,62 @@ public class Drivetrain extends SubsystemBase {
     return m_tof.getRange();
   }
 
-  public double getSensorVel(TalonFX talon) {
-    return talon.getSelectedSensorVelocity();
+  public double[] getSensorValues() {
+    double[] tmp = new double[4];
+    tmp[0] = -m_frontLeft.getSelectedSensorPosition()-m_rearLeft.getSelectedSensorPosition();
+    tmp[1] = m_frontRight.getSelectedSensorPosition()+m_rearRight.getSelectedSensorPosition();
+    return tmp;
+  }
+
+  public HashMap<String, Double> shfVals() {
+    double m_balance_kP = m_table.balance_kp_entry.getDouble(0);
+    double m_balance_kI = m_table.balance_ki_entry.getDouble(0);
+    double m_balance_kD = m_table.balance_kd_entry.getDouble(0);
+
+    double m_ramp_kP = m_table.ramp_kp_entry.getDouble(0);
+    double m_ramp_kI = m_table.ramp_ki_entry.getDouble(0);
+    double m_ramp_kD = m_table.ramp_kd_entry.getDouble(0);
+
+    HashMap<String, Double> dict = new HashMap<String, Double>();
+
+    dict.put("balancekP", m_balance_kP);
+    dict.put("balancekI", m_balance_kI);
+    dict.put("balancekD", m_balance_kD);
+
+    dict.put("rampkP", m_ramp_kP);
+    dict.put("rampkI", m_ramp_kI);
+    dict.put("rampkD", m_ramp_kD);
+
+    return dict;
+  }
+
+  public double getConvertedToMeters(double[] sensorInput) {
+    double averagedDist = 0;
+    for (double inp:sensorInput) {
+      double motorRot = inp / Constants.TICKS_PER_DRIVE_TRAIN_REVOLUTION;
+      double wheelRot = motorRot / Constants.ENCODER_GEAR_RATIO;
+      averagedDist += wheelRot * (2 * Math.PI * Units.inchesToMeters(Constants.WHEEL_DIAMETER / 2));
+    }
+    return averagedDist / sensorInput.length;
+  }
+
+  public void setStartDist(double override) {
+      startDist = override;
+  }
+
+  public double getStartDist() {
+    return startDist;
+  }
+
+  public void resetEncoders() {
+    m_frontLeft.setSelectedSensorPosition(0);
+    m_frontRight.setSelectedSensorPosition(0);
+    m_rearLeft.setSelectedSensorPosition(0);
+    m_rearRight.setSelectedSensorPosition(0);
+  }
+
+  public double getBuiltInEncoder(TalonFX talon) {
+    return talon.getSelectedSensorPosition();
   }
 
   public void setToFMode(RangingMode inp) {
