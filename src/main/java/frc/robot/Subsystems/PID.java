@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
 public class PID extends PIDSubsystem {
   /** Creates a new PID. */
-
   public PID(double kp, double ki, double kd) {
     super(
         // The PIDController used by the subsystem
@@ -21,7 +20,15 @@ public class PID extends PIDSubsystem {
 
   public double returnCalc(double curr, double setpoint) {
     // Use the output here
-    return getController().calculate(curr, setpoint); 
+    if (curr < 0) {
+      setpoint *= -1;
+    }
+    double[] currSet = new double[2];
+    currSet[0] = curr;
+    currSet[1] = setpoint;
+    SmartDashboard.putNumberArray("currSet: ", currSet);
+
+    return getController().calculate(curr, setpoint);
   }
 
   public double getVelError() {

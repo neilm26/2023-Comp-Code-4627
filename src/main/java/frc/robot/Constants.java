@@ -116,15 +116,20 @@ public final class Constants {
   public static final double PEAK_DRIVE_RPM = 2000;
   public static final double DRIVE_COMPENSATION = 600;
 
+  public static final double RAMP_KP = 0.3;
+  public static final double RAMP_KI = 0.07;
+  public static final double RAMP_KD = 0;
+
   //Inclination
   public static final double MAX_INCLINATION_ANGLE = 25;
+  public static final double BALANCE_LEN = 1.0;
   ///////////////////////////////
   
   // Encoder values
-  public static final double WHEEL_DIAMETER = 15.24;
+  public static final double WHEEL_DIAMETER = 6;
   public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER - Math.PI;
   public static final double ENCODER_PULSES_PER_ROTATION = 2048;
-  public static final double ENCODER_GEAR_RATIO = 5.95;
+  public static final double ENCODER_GEAR_RATIO = 8.7; //laughably inaccurate
   
   
   // SHOOTER

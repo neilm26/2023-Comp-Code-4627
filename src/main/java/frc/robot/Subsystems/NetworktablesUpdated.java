@@ -15,19 +15,24 @@ import frc.robot.Constants;
 
 public class NetworktablesUpdated extends SubsystemBase {
   /** Creates a new NetworktablesUpdated. */
-  public GenericEntry kp_entry,ki_entry,kd_entry, ka_entry, kv_entry;
+  public GenericEntry balance_kp_entry, balance_ki_entry, balance_kd_entry, 
+            ramp_kp_entry, ramp_ki_entry, ramp_kd_entry, ka_entry, kv_entry;
   private ShuffleboardTab tab = Shuffleboard.getTab("Drive");
   public void BuildWidget() {
-    kp_entry = tab.addPersistent("kP", Constants.PIGEON_KP).
+    balance_kp_entry = tab.addPersistent("balancekP", Constants.PIGEON_KP).
           withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.3)).getEntry();
-    ki_entry = tab.addPersistent("kI", Constants.PIGEON_KI).
+    balance_ki_entry = tab.addPersistent("balancekI", Constants.PIGEON_KI).
           withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.03)).getEntry();      
-    kd_entry = tab.addPersistent("kD", Constants.PIGEON_KD).
+    balance_kd_entry = tab.addPersistent("balancekD", Constants.PIGEON_KD).
           withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.05)).getEntry(); 
-    ka_entry = tab.addPersistent("kA", Constants.FEEDFORWARD_KA).
-          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.3)).getEntry();      
-    kv_entry = tab.addPersistent("kV", Constants.FEEDFORWARD_KV).
+
+
+    ramp_kp_entry = tab.addPersistent("rampkP", Constants.RAMP_KP).
           withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.3)).getEntry();
+    ramp_ki_entry = tab.addPersistent("rampkI", Constants.RAMP_KI).
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.03)).getEntry();      
+    ramp_kd_entry = tab.addPersistent("rampkD", Constants.RAMP_KD).
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.05)).getEntry(); 
   }
 
   public NetworktablesUpdated() {} 
