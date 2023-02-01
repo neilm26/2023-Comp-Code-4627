@@ -15,8 +15,8 @@ public class Tuner extends CommandBase {
   private final Drivetrain m_Drivetrain;
 
   private double m_startDist;
-  private double m_startDistAuto;
 
+  
   public Tuner(Drivetrain drivetrain) {
     m_Drivetrain = drivetrain;
 
@@ -29,14 +29,12 @@ public class Tuner extends CommandBase {
     //m_Drivetrain.setToFMode(RangingMode.Long);
 
     m_startDist = m_Drivetrain.getStartDist();
-    m_startDistAuto = m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
 
   @Override
   public void execute() {
-    //Important: 2 taps for a small bot, 6 taps for snoopy
     climb(m_Drivetrain.shfVals().get("rampkP"), 
         m_Drivetrain.shfVals().get("rampkI"), m_Drivetrain.shfVals().get("rampkD"));
 }
@@ -48,10 +46,11 @@ public class Tuner extends CommandBase {
   }
 
   private void climb(double m_kP, double m_kI, double m_kD) {
+
     m_Drivetrain.getController().getController().setPID(m_kP, m_kI, m_kD); 
 
     double filtered = m_Drivetrain.getController().
-        returnCalc(m_startDist+(m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues())-m_startDistAuto), 
+        returnCalc(m_startDist-m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues()), 
         Constants.BALANCE_LEN);
 
     SmartDashboard.putNumber("filtered: ", filtered);
@@ -64,6 +63,6 @@ public class Tuner extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_Drivetrain.getController().getMeasurement() <= 0.02;
+    return Math.abs(m_Drivetrain.getController().getMeasurement()) <= Constants.DRIVE_POS_ERR_TOL;
   }
 }

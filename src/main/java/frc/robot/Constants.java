@@ -109,6 +109,7 @@ public final class Constants {
   public static final double SPEED_MULTIPLIER = 0.75;
 
   public static final double DRIVE_ANG_ERR_TOL = 0.4; //angle tolerance of +- said value in degrees
+  public static final double DRIVE_POS_ERR_TOL = 0.02;
 
   public static final double DRIVE_VEL_PEAK = 12; //max voltage
   public static final int PID_IDX = 0; //pid_controller identification
@@ -121,8 +122,8 @@ public final class Constants {
   public static final double RAMP_KD = 0;
 
   //Inclination
-  public static final double MAX_INCLINATION_ANGLE = 25;
-  public static final double BALANCE_LEN = 1.0;
+  public static final double MAX_INCLINATION_ANGLE = 8; //degrees
+  public static final double BALANCE_LEN = 0.86; //meters
   ///////////////////////////////
   
   // Encoder values
@@ -183,8 +184,8 @@ public final class Constants {
   
 
     //PIGEON
-    public static final double PIGEON_KP = 0.0485; //.051835
-    public static final double PIGEON_KI = 0.0016666666666;
+    public static final double PIGEON_KP = 0.076923; //.051835
+    public static final double PIGEON_KI = 0.006538;
     public static final double PIGEON_KD = 0;
   
     public static final double FEEDFORWARD_KV = 0.03; //use sysid

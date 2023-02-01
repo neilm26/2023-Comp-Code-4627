@@ -28,11 +28,11 @@ public class NetworktablesUpdated extends SubsystemBase {
 
 
     ramp_kp_entry = tab.addPersistent("rampkP", Constants.RAMP_KP).
-          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.3)).getEntry();
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",1)).getEntry();
     ramp_ki_entry = tab.addPersistent("rampkI", Constants.RAMP_KI).
-          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.03)).getEntry();      
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.2)).getEntry();      
     ramp_kd_entry = tab.addPersistent("rampkD", Constants.RAMP_KD).
-          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.05)).getEntry(); 
+          withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",0.2)).getEntry(); 
   }
 
   public NetworktablesUpdated() {} 

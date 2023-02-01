@@ -112,6 +112,11 @@ public class Drivetrain extends SubsystemBase {
     return tmp;
   }
 
+  public void encoderForward(double distance) {
+    m_frontLeft.setSelectedSensorPosition(distance, Constants.PID_IDX, Constants.TIMEOUT_MS);
+    m_frontRight.setSelectedSensorPosition(distance, Constants.PID_IDX, Constants.TIMEOUT_MS);
+  }
+
   public HashMap<String, Double> shfVals() {
     double m_balance_kP = m_table.balance_kp_entry.getDouble(0);
     double m_balance_kI = m_table.balance_ki_entry.getDouble(0);

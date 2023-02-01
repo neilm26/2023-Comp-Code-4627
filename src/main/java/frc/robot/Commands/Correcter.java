@@ -41,7 +41,7 @@ public class Correcter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    cancelCommand = abort(Constants.MAX_INCLINATION_ANGLE, Math.abs(m_Pigeon.getRoll()));
+    //cancelCommand = abort(Constants.MAX_INCLINATION_ANGLE, Math.abs(m_Pigeon.getRoll()));
 
     tmp[0] = m_Pigeon.getRoll(); //angular velocity ; x = [0], y = [1], z = [2]
     tmp[1] = m_Pigeon.getRate()[0];
@@ -55,12 +55,11 @@ public class Correcter extends CommandBase {
 
   public void cycleBalance(double m_kP, double m_kI, double m_kD) {
     m_Drivetrain.getController().getController().setPID(m_kP, m_kI, m_kD); 
-
+    //Important: 2 taps for a small bot, 6 taps for snoopy
     double pigeonFiltered = m_Drivetrain.getController().returnCalc(m_Pigeon.cancelNoise(m_Pigeon.getRoll(),6), m_Pigeon.getSetpoint());
 
     double power = Utilities.constrain(pigeonFiltered,-1,1);
-    m_Drivetrain.setMotorsVelocity(power, power, 1);
-
+    m_Drivetrain.setMotorsVelocity(power, power, 0.6);
   }
 
   // Called once the command ends or is interrupted.

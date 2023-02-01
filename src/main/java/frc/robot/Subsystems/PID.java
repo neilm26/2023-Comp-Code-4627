@@ -20,9 +20,6 @@ public class PID extends PIDSubsystem {
 
   public double returnCalc(double curr, double setpoint) {
     // Use the output here
-    if (curr < 0) {
-      setpoint *= -1;
-    }
     double[] currSet = new double[2];
     currSet[0] = curr;
     currSet[1] = setpoint;
