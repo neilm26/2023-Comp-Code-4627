@@ -46,9 +46,9 @@ public class DriveControls extends CommandBase {
     speed = (lefttrigger.get() - righttrigger.get());
 
     turn = Math.cbrt(joystickX.get());
-    //drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+   // drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
     
-    drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+    drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER); // change back speed multiplier
   }
 
   // Called once the command ends or is interrupted.
