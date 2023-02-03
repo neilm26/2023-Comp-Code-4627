@@ -22,10 +22,10 @@ public class PID extends PIDSubsystem {
     // Use the output here
     double[] currSet = new double[2];
     currSet[0] = curr;
-    currSet[1] = setpoint;
+    currSet[1] = -setpoint;
     SmartDashboard.putNumberArray("currSet: ", currSet);
 
-    return getController().calculate(curr, setpoint);
+    return getController().calculate(curr, -setpoint);
   }
 
   public double getVelError() {

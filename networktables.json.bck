@@ -10,7 +10,7 @@
   {
     "name": "/Shuffleboard/Drive/kP",
     "type": "double",
-    "value": 0.14666666666666667,
+    "value": 0.146666666666667,
     "properties": {
       "persistent": true
     }
@@ -18,7 +18,7 @@
   {
     "name": "/Shuffleboard/Drive/kI",
     "type": "double",
-    "value": 0.018461538461538463,
+    "value": 0.018461538461538,
     "properties": {
       "persistent": true
     }
@@ -26,7 +26,79 @@
   {
     "name": "/Shuffleboard/Drive/kD",
     "type": "double",
-    "value": 0.006794871794871791,
+    "value": 0.006794871794872,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/kA",
+    "type": "double",
+    "value": 0.09,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/kV",
+    "type": "double",
+    "value": 0.03,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/PID",
+    "type": "double[]",
+    "value": [0.0, 0.0, 0.0],
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/balancekP",
+    "type": "double",
+    "value": 0.076923,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/balancekI",
+    "type": "double",
+    "value": 0.006538,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/balancekD",
+    "type": "double",
+    "value": 0.13,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/rampkP",
+    "type": "double",
+    "value": 0.3,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/rampkI",
+    "type": "double",
+    "value": 0.07,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Shuffleboard/Drive/rampkD",
+    "type": "double",
+    "value": 0.0,
     "properties": {
       "persistent": true
     }

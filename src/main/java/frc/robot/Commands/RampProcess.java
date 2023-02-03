@@ -5,6 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.Pigeon2Subsystem;
@@ -17,8 +18,9 @@ public class RampProcess extends SequentialCommandGroup {
   public RampProcess(Drivetrain drivetrain, Pigeon2Subsystem pigeon) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    //addCommands(new PathForward(drivetrain, pigeon));
-   // addCommands(new Tuner(drivetrain));
-    //addCommands(new Correcter(drivetrain, pigeon));
+    addCommands(new PathForward(drivetrain, pigeon));
+    addCommands(new Tuner(drivetrain));
+    addCommands(new WaitCommand(3));
+    addCommands(new Correcter(drivetrain, pigeon));
   }
 }

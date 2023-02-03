@@ -5,8 +5,10 @@
 package frc.robot.Subsystems;
 
 import java.util.HashMap;
+import java.util.concurrent.locks.Condition;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -42,13 +44,18 @@ public class Drivetrain extends SubsystemBase {
   private boolean visionRunning = false;
 
   private TalonFX ConfigDriveAttributes(TalonFX motor) {
-    motor.configNeutralDeadband(0.001); //dead zone where nothing happens; similar to deadband on controller
 
+    //motor.configFactoryDefault();
+
+    motor.configNeutralDeadband(0.001); //dead zone where nothing happens; similar to deadband on controller
+    motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,Constants.PID_IDX, Constants.TIMEOUT_MS);
     motor.configNominalOutputForward(0.0, Constants.TIMEOUT_MS);
     motor.configNominalOutputReverse(0.0, Constants.TIMEOUT_MS);
     motor.configPeakOutputForward(1.0, Constants.TIMEOUT_MS);
     motor.configPeakOutputReverse(-1.0, Constants.TIMEOUT_MS);  
-   // motor.configClosedloopRamp(1, Constants.TIMEOUT_MS);
+
+    motor.config_kP(Constants.PID_IDX, 0.8);
+
     return motor;
   }
 
@@ -118,6 +125,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public HashMap<String, Double> shfVals() {
+    
     double m_balance_kP = m_table.balance_kp_entry.getDouble(0);
     double m_balance_kI = m_table.balance_ki_entry.getDouble(0);
     double m_balance_kD = m_table.balance_kd_entry.getDouble(0);

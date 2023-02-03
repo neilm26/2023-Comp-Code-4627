@@ -50,14 +50,14 @@ public class Tuner extends CommandBase {
     m_Drivetrain.getController().getController().setPID(m_kP, m_kI, m_kD); 
 
     double filtered = m_Drivetrain.getController().
-        returnCalc(m_startDist-m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues()), 
+        returnCalc(m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues())-m_startDist, 
         Constants.BALANCE_LEN);
-
+        
     SmartDashboard.putNumber("filtered: ", filtered);
     SmartDashboard.putNumber("error: ", m_Drivetrain.getController().getMeasurement());
 
     double power = Utilities.constrain(filtered,-1,1);
-    m_Drivetrain.setMotorsVelocity(power, power, 1);
+    m_Drivetrain.setMotors(power, power, 1);
   }
 
   // Returns true when the command should end.

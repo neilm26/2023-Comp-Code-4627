@@ -53,7 +53,7 @@ public class RobotContainer {
     this.m_drivetrain.resetEncoders();
     // setup default commands
     this.m_drivetrain.setDefaultCommand(getDriverControls());
-   m_OI.dButtonB.toggleOnTrue(m_Tune);
+    m_OI.dButtonB.toggleOnTrue(m_Tune);
     m_OI.dButtonX.onTrue(new InstantCommand(() -> m_Pigeon2.setSetpoint(m_Pigeon2.getRoll())));
     m_OI.dButtonA.toggleOnTrue(new InstantCommand(() -> Constants.DRIVE_MAX_SPEED = 0.15));
 

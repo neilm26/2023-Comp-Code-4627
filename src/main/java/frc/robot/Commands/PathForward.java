@@ -4,6 +4,7 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Subsystems.Drivetrain;
@@ -32,23 +33,26 @@ public class PathForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    forward(0.5, 0.5);
+    forward(-0.5, 0.5);
   }
 
   private void forward(double power, double scale) {
     if (Math.abs(m_Pigeon2.getRoll()) <= Constants.MAX_INCLINATION_ANGLE) {
-      m_Drivetrain.setMotorsVelocity(power, power, scale);
+      m_Drivetrain.setMotors(power, power, scale);
+      SmartDashboard.putNumberArray("AAAAAA: ", m_Drivetrain.getSensorValues());
     }
     else {
-        //m_Drivetrain.setStartDist(m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues()));
-        m_Drivetrain.setStartDist(0);
+        m_Drivetrain.setStartDist(m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues()));
+        //m_Drivetrain.setStartDist(0);
         finish = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_Drivetrain.setMotors(0, 0, 0);
+  }
 
   // Returns true when the command should end.
   @Override
