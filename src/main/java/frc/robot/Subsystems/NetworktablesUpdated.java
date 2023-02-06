@@ -4,8 +4,6 @@
 
 package frc.robot.Subsystems;
 
-import java.util.Map;
-
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -19,7 +17,6 @@ public class NetworktablesUpdated extends SubsystemBase {
             ramp_kp_entry, ramp_ki_entry, ramp_kd_entry, ka_entry, kv_entry;
   private ShuffleboardTab tab = Shuffleboard.getTab("Drive");
   public void BuildWidget() {
-    
     balance_kp_entry = tab.addPersistent("balancekP", Constants.PIGEON_KP).
           withWidget(BuiltInWidgets.kTextView).getEntry();
     balance_ki_entry = tab.addPersistent("balancekI", Constants.PIGEON_KI).

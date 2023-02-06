@@ -114,7 +114,7 @@ public final class Constants {
   public static final double DRIVE_VEL_PEAK = 12; //max voltage
   public static final int PID_IDX = 0; //pid_controller identification
   public static final double TICKS_PER_DRIVE_TRAIN_REVOLUTION = 2048;
-  public static final double PEAK_DRIVE_RPM = 1000;
+  public static final double PEAK_DRIVE_RPM = 6800;
   public static final double DRIVE_COMPENSATION = 600;
 
   public static final double RAMP_KP = 0.3;
@@ -122,7 +122,7 @@ public final class Constants {
   public static final double RAMP_KD = 0;
 
   //Inclination
-  public static final double MAX_INCLINATION_ANGLE = 8; //degrees
+  public static final double MAX_INCLINATION_ANGLE = 20; //degrees
   public static final double BALANCE_LEN = 0.95; //meters
   ///////////////////////////////
   

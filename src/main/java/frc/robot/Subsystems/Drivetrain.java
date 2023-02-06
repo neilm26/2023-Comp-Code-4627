@@ -5,7 +5,6 @@
 package frc.robot.Subsystems;
 
 import java.util.HashMap;
-import java.util.concurrent.locks.Condition;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -16,10 +15,6 @@ import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-// import com.ctre.phoenix.motorcontrol.ControlMode;
-// import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -36,35 +31,26 @@ public class Drivetrain extends SubsystemBase {
   private final PID m_PID;
   private final NetworktablesUpdated m_table;
   private double startDist;
-  
-
-  private final double distancePerTick = (Constants.WHEEL_CIRCUMFERENCE/(Constants.ENCODER_PULSES_PER_ROTATION*1.4*Constants.ENCODER_GEAR_RATIO));
-  // we really need to find what's causing the error here so we can remove *1.4
-  
-  private boolean visionRunning = false;
 
   private TalonFX ConfigDriveAttributes(TalonFX motor) {
 
-    //motor.configFactoryDefault();
+    motor.configFactoryDefault();
 
+    
     motor.configNeutralDeadband(0.001); //dead zone where nothing happens; similar to deadband on controller
-    motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,Constants.PID_IDX, Constants.TIMEOUT_MS);
+    motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor,Constants.PID_IDX, Constants.TIMEOUT_MS);
     motor.configNominalOutputForward(0.0, Constants.TIMEOUT_MS);
     motor.configNominalOutputReverse(0.0, Constants.TIMEOUT_MS);
     motor.configPeakOutputForward(1.0, Constants.TIMEOUT_MS);
     motor.configPeakOutputReverse(-1.0, Constants.TIMEOUT_MS);  
+    
 
-    motor.config_kP(Constants.PID_IDX, 0.8);
-
+    motor.config_kP(Constants.PID_IDX, 0.05);
     return motor;
   }
 
   /** Creates a new Drive. */
   public Drivetrain(PID pid, NetworktablesUpdated m_table) {
-    // m_drive.setMaxOutput(distancePerTick);
-    // // resetEncoders();
-    // m_rearLeft.follow(m_frontLeft);
-    // m_rearRight.follow(m_frontRight);
 
     m_rearLeft.set(ControlMode.Follower, m_frontLeft.getDeviceID());
     m_rearRight.set(ControlMode.Follower, m_frontRight.getDeviceID());
@@ -99,9 +85,7 @@ public class Drivetrain extends SubsystemBase {
     double right = Utilities.scale(rightVel, scaleFactor);
     m_frontRight.set(TalonFXControlMode.Velocity, right * Constants.PEAK_DRIVE_RPM * Constants.TICKS_PER_DRIVE_TRAIN_REVOLUTION / Constants.DRIVE_COMPENSATION);   
 
-    SmartDashboard.putNumber("Applied Velocity: ", m_frontRight.getSelectedSensorVelocity(0));
     double left = Utilities.scale(leftVel, scaleFactor);
-
     //left is joystick input multiplied by a scaling factor to limit max_vel
     //drive compensation is tunable
     //peak drive rpm is the max rpm of a falcon 500 taking into account robot weight
@@ -114,6 +98,7 @@ public class Drivetrain extends SubsystemBase {
 
   public double[] getSensorValues() {
     double[] tmp = new double[4];
+
     tmp[0] = -m_frontLeft.getSelectedSensorPosition()-m_rearLeft.getSelectedSensorPosition();
     tmp[1] = m_frontRight.getSelectedSensorPosition()+m_rearRight.getSelectedSensorPosition();
     return tmp;

@@ -9,10 +9,6 @@ import java.util.Arrays;
 
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N2;
-import edu.wpi.first.math.system.LinearSystem;
-import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,9 +18,6 @@ public class Pigeon extends SubsystemBase {
   /** Creates a new Pigeon. */
   private final WPI_PigeonIMU pigeonIMU = new WPI_PigeonIMU(Constants.PIGEON_ID);
   private final Accelerometer accelerometer = new BuiltInAccelerometer();
-
-  private final LinearSystem<N2, N1, N1> pigeonPlant = LinearSystemId.identifyPositionSystem( 
-                                              Constants.FEEDFORWARD_KV, Constants.FEEDFORWARD_KA);
 
   private double setpoint;
   private double[] getAccelerometerAngles = new double[3];

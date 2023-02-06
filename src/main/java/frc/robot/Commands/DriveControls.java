@@ -6,11 +6,8 @@ package frc.robot.Commands;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Subsystems.Drivetrain;
-import frc.robot.Subsystems.Pigeon2Subsystem;
 
 public class DriveControls extends CommandBase {
   /** Creates a new DriveControls. */
@@ -46,9 +43,9 @@ public class DriveControls extends CommandBase {
     speed = (lefttrigger.get() - righttrigger.get());
 
     turn = Math.cbrt(joystickX.get());
-   // drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
+    //drive.setMotors(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER);
     
-    drive.setMotorsVelocity(speed + turn, speed - turn, Constants.SPEED_MULTIPLIER); // change back speed multiplier
+    drive.setMotorsVelocity(speed + turn, speed - turn, 1); // change back speed multiplier
   }
 
   // Called once the command ends or is interrupted.

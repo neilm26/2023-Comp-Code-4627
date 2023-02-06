@@ -7,30 +7,13 @@ package frc.robot.Subsystems;
 
 import com.ctre.phoenix.sensors.Pigeon2Configuration;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-
-import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.Nat;
-import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.controller.LinearQuadraticRegulator;
-import edu.wpi.first.math.estimator.KalmanFilter;
 import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N2;
-import edu.wpi.first.math.system.LinearSystem;
-import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Pigeon2Subsystem extends SubsystemBase {
   /** Creates a new Pigeon2. */
   private final WPI_Pigeon2 pigeon2 = new WPI_Pigeon2(Constants.PIGEON_ID);
-
-  private final LinearSystem<N2, N2, N2> drivetrainPlant = LinearSystemId.identifyDrivetrainSystem( 
-                                              Constants.FEEDFORWARD_KV, Constants.FEEDFORWARD_KA, 
-                                              Constants.FEEDFORWARD_ANG_KV, Constants.FEEDFORWARD_ANG_KA);
-
-  // private final KalmanFilter<N2,N1, N1> balance_LQR = new KalmanFilter<>(Nat.N1(), Nat.N1(),drivetrainPlant, 
-  //                                     VecBuilder.fill(Constants.DRIVE_ANG_ERR_TOL),null,0.020);
 
   private double setpoint;
   private double[] getRawGyroAngles = new double[3];

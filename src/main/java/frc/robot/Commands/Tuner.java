@@ -57,7 +57,7 @@ public class Tuner extends CommandBase {
     SmartDashboard.putNumber("error: ", m_Drivetrain.getController().getMeasurement());
 
     double power = Utilities.constrain(filtered,-1,1);
-    m_Drivetrain.setMotors(power, power, 1);
+    m_Drivetrain.setMotorsVelocity(power, power, 1);
   }
 
   // Returns true when the command should end.
