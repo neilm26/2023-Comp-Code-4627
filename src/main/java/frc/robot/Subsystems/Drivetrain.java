@@ -119,6 +119,8 @@ public class Drivetrain extends SubsystemBase {
     double m_ramp_kI = m_table.ramp_ki_entry.getDouble(0);
     double m_ramp_kD = m_table.ramp_kd_entry.getDouble(0);
 
+    double balance_len = m_table.balance_len.getDouble(Constants.BALANCE_LEN);
+
     HashMap<String, Double> dict = new HashMap<String, Double>();
 
     dict.put("balancekP", m_balance_kP);
@@ -128,6 +130,8 @@ public class Drivetrain extends SubsystemBase {
     dict.put("rampkP", m_ramp_kP);
     dict.put("rampkI", m_ramp_kI);
     dict.put("rampkD", m_ramp_kD);
+
+    dict.put("balance_len", balance_len);
 
     return dict;
   }

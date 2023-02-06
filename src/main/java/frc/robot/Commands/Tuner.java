@@ -51,9 +51,8 @@ public class Tuner extends CommandBase {
 
     double filtered = m_Drivetrain.getController().
         returnCalc(m_Drivetrain.getConvertedToMeters(m_Drivetrain.getSensorValues())-m_startDist, 
-        Constants.BALANCE_LEN);
+        m_Drivetrain.shfVals().get("balance_len"));
         
-    SmartDashboard.putNumber("filtered: ", filtered);
     SmartDashboard.putNumber("error: ", m_Drivetrain.getController().getMeasurement());
 
     double power = Utilities.constrain(filtered,-1,1);

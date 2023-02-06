@@ -14,7 +14,8 @@ import frc.robot.Constants;
 public class NetworktablesUpdated extends SubsystemBase {
   /** Creates a new NetworktablesUpdated. */
   public GenericEntry balance_kp_entry, balance_ki_entry, balance_kd_entry, 
-            ramp_kp_entry, ramp_ki_entry, ramp_kd_entry, ka_entry, kv_entry;
+            ramp_kp_entry, ramp_ki_entry, ramp_kd_entry, ka_entry, kv_entry, 
+            balance_len;
   private ShuffleboardTab tab = Shuffleboard.getTab("Drive");
   public void BuildWidget() {
     balance_kp_entry = tab.addPersistent("balancekP", Constants.PIGEON_KP).
@@ -31,6 +32,10 @@ public class NetworktablesUpdated extends SubsystemBase {
           withWidget(BuiltInWidgets.kTextView).getEntry();      
     ramp_kd_entry = tab.addPersistent("rampkD", Constants.RAMP_KD).
           withWidget(BuiltInWidgets.kTextView).getEntry(); 
+
+    balance_len = tab.addPersistent("balance_len", Constants.BALANCE_LEN).
+          withWidget(BuiltInWidgets.kTextView).getEntry();      
+    
   }
 
   public NetworktablesUpdated() {} 

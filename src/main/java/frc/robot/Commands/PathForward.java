@@ -4,6 +4,8 @@
 
 package frc.robot.Commands;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Subsystems.Drivetrain;
@@ -27,12 +29,13 @@ public class PathForward extends CommandBase {
   @Override
   public void initialize() {
     finish = false;
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    forward(-0.5, 1);
+    forward(-0.6, 1);
   }
 
   private void forward(double power, double scale) {

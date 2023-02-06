@@ -19,7 +19,7 @@ public class RampProcess extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new PathForward(drivetrain, pigeon));
     addCommands(new Tuner(drivetrain));
-    addCommands(new WaitCommand(3));
+    addCommands(new WaitCommand(2));
     addCommands(new Correcter(drivetrain, pigeon));
   }
 }

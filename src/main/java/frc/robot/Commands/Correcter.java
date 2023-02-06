@@ -41,7 +41,7 @@ public class Correcter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    cancelCommand = abort(Constants.MAX_INCLINATION_ANGLE, Math.abs(m_Pigeon.getRoll()));
+    //cancelCommand = abort(Constants.MAX_INCLINATION_ANGLE, Math.abs(m_Pigeon.getRoll()));
 
     tmp[0] = m_Pigeon.getRoll(); //angular velocity ; x = [0], y = [1], z = [2]
     tmp[1] = m_Pigeon.getRate()[0];
