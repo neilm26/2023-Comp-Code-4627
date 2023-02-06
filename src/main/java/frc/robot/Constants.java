@@ -117,13 +117,13 @@ public final class Constants {
   public static final double PEAK_DRIVE_RPM = 6800;
   public static final double DRIVE_COMPENSATION = 600;
 
-  public static final double RAMP_KP = 0.3;
-  public static final double RAMP_KI = 0.07;
+  public static final double RAMP_KP = 0.24786;
+  public static final double RAMP_KI = 0.04102;
   public static final double RAMP_KD = 0;
 
   //Inclination
-  public static final double MAX_INCLINATION_ANGLE = 20; //degrees
-  public static final double BALANCE_LEN = 0.95; //meters
+  public static final double MAX_INCLINATION_ANGLE = 14; //degrees
+  public static final double BALANCE_LEN = 0.97; //meters
   ///////////////////////////////
   
   // Encoder values
@@ -184,8 +184,8 @@ public final class Constants {
   
 
     //PIGEON
-    public static final double PIGEON_KP = 0.076923; //.051835
-    public static final double PIGEON_KI = 0.006538;
+    public static final double PIGEON_KP = 0.05134; //.051835
+    public static final double PIGEON_KI = 0.00717948;
     public static final double PIGEON_KD = 0;
   
     public static final double FEEDFORWARD_KV = 0.03; //use sysid
@@ -194,7 +194,7 @@ public final class Constants {
     public static final double FEEDFORWARD_ANG_KV = 0.03;
     public static final double FEEDFORWARD_ANG_KA = 0.03;
 
-    public static final double PIGEON_TOLERANCE = 5;
+    public static final double PIGEON_TOLERANCE = 1;
   
   // ----------- COMMAND CONSTANTS ------------ //
   // AutoDrive
